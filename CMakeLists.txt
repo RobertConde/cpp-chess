@@ -3,4 +3,4 @@ project(Chess)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Chess main.cpp)
+add_executable(Chess Driver.cpp)
