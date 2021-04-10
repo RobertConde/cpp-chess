@@ -3,9 +3,9 @@
 
 CMakeFiles/Chess.dir/main.cpp.obj: ../Board.cpp
 CMakeFiles/Chess.dir/main.cpp.obj: ../Board.h
-CMakeFiles/Chess.dir/main.cpp.obj: ../ChessPiece.cpp
-CMakeFiles/Chess.dir/main.cpp.obj: ../ChessPiece.h
 CMakeFiles/Chess.dir/main.cpp.obj: ../Pawn.cpp
 CMakeFiles/Chess.dir/main.cpp.obj: ../Pawn.h
+CMakeFiles/Chess.dir/main.cpp.obj: ../Piece.cpp
+CMakeFiles/Chess.dir/main.cpp.obj: ../Piece.h
 CMakeFiles/Chess.dir/main.cpp.obj: ../main.cpp
 

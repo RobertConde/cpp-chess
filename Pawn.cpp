@@ -3,7 +3,7 @@
 
 #include "Pawn.h"
 
-Pawn::Pawn(int color, std::pair<int,int> loc) : ChessPiece(color, loc, 'P') {}
+Pawn::Pawn(int color, std::pair<int,int> loc) : Piece(color, loc, 'P') {}
 
 bool Pawn::move(Board* brd, std::pair<int,int> loc) {
 	std::cout << "Attempting to movePiece " << typeid(this).name()

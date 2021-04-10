@@ -1,10 +1,10 @@
 #include <ostream>
 
-#include "ChessPiece.cpp"
+#include "Piece.cpp"
 
 struct Board;   // Forward declaration of board
 
-struct Pawn : ChessPiece {
+struct Pawn : Piece {
 private:
 	bool m_moved = false;
 

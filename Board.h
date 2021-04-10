@@ -1,14 +1,14 @@
 #include <vector>
 #include <utility>
 
-#include "ChessPiece.cpp"
+#include "Piece.cpp"
 
 // Forward declarations of pieces
 struct Pawn;
 
 struct Board {
 public:
-	std::vector<std::vector<ChessPiece*>> m_board = std::vector<std::vector<ChessPiece*>>(8, std::vector<ChessPiece*>(8, nullptr));
+	std::vector<std::vector<Piece*>> m_board = std::vector<std::vector<Piece*>>(8, std::vector<Piece*>(8, nullptr));
 
 	Board();
 
@@ -19,7 +19,7 @@ public:
 			os << y << "|";
 
 			for (int x = 1; x <= 8; ++x) {
-				ChessPiece* currPiece = brd.m_board[x - 1][y - 'A'];
+				Piece* currPiece = brd.m_board[x - 1][y - 'A'];
 
 				if (currPiece == nullptr)
 					os << " ";
