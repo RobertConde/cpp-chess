@@ -1,6 +1,3 @@
-#ifndef CHESS_CHESSPIECE_H
-#define CHESS_CHESSPIECE_H
-
 #include <ostream>
 
 struct Board;   // Forward declaration
@@ -15,8 +12,7 @@ protected:
 	int m_color;
 	std::pair<int,int> m_loc;
 public:
-	explicit ChessPiece(int color, std::pair<int, int> pos, const char symbol)
-			: m_color(color), m_loc(pos), m_symbol(symbol) {}
+	explicit ChessPiece(int color, std::pair<int, int> pos, const char symbol);
 
 	friend std::ostream& operator <<(std::ostream& os, ChessPiece& piece) {
 		os << piece.m_symbol;
@@ -24,8 +20,5 @@ public:
 		return os;
 	}
 
-
 	virtual bool move(Board* brd, std::pair<int,int> loc) = 0;  // Pure virtual function (makes class abstract--no keyword)
 };
-
-#endif //CHESS_CHESSPIECE_H
