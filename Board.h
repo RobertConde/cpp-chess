@@ -1,14 +1,14 @@
 #include <vector>
 #include <utility>
 
-#include "Piece.cpp"
+#include "ChessPiece.cpp"
 
 // Forward declarations of pieces
 struct Pawn;
 
 struct Board {
 public:
-	std::vector<std::vector<Piece*>> m_board = std::vector<std::vector<Piece*>>(8, std::vector<Piece*>(8, nullptr));
+	std::vector<std::vector<ChessPiece*>> m_board = std::vector<std::vector<ChessPiece*>>(8, std::vector<ChessPiece*>(8, nullptr));
 
 	Board();
 
@@ -19,7 +19,7 @@ public:
 			os << y << "|";
 
 			for (int x = 1; x <= 8; ++x) {
-				Piece* currPiece = brd.m_board[x - 1][y - 'A'];
+				ChessPiece* currPiece = brd.m_board[x - 1][y - 'A'];
 
 				if (currPiece == nullptr)
 					os << " ";
@@ -34,7 +34,12 @@ public:
 		return os;
 	}
 
+	bool isEmpty(std::pair<int,int> loc);
+
 	bool movePiece(std::pair<int,int> loc1, std::pair<int,int> loc2);
+
+	// Check is non-inclusive on both points, only checks the path between
+	bool checkClearPath(std::pair<int,int> loc1, std::pair<int,int> loc2, std::pair<int,int> delta);
 };
 
 #include "Pawn.cpp"
