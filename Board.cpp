@@ -4,11 +4,15 @@
 #include "Board.h"
 
 Board::Board() {
-	// Place Pawns
+	// Place pieces
 	for (int x = 1; x <= 8; ++x) {
 		if (x == 1 || x == 8) {
 			m_board[x - 1][7] = new Rook(ChessPiece::COLOR_BLACK, std::make_pair(x - 1, 7));
 			m_board[x - 1][0] = new Rook(ChessPiece::COLOR_WHITE, std::make_pair(x - 1, 0));
+		} else if (x == 4) {
+			m_board[x - 1][7] = new King(ChessPiece::COLOR_BLACK, std::make_pair(x - 1, 7));
+		} else if(x == 5) {
+			m_board[x - 1][0] = new King(ChessPiece::COLOR_WHITE, std::make_pair(x - 1, 0));
 		}
 
 		m_board[x - 1][6] = new Pawn(ChessPiece::COLOR_BLACK, std::make_pair(x - 1, 7));
