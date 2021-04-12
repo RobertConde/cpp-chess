@@ -19,7 +19,7 @@ public:
 		os << " *--------*" << "\n";
 
 		for (char y = 'H'; y >= 'A'; --y) {
-			os << (!brd.m_rotated ? (y - 'A') + 1 : (7 - (y - 'A'))) << "|";
+			os << (!brd.m_rotated ? (y - 'A') + 1 : (7 - (y - 'A')) + 1) << "|";
 
 			for (int x = 1; x <= 8; ++x) {
 				ChessPiece* currPiece = brd.m_board[x - 1][y - 'A'];
