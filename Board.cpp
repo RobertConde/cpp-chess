@@ -5,12 +5,14 @@
 
 Board::Board() {
 	// Place Pawns
-	for (char x = 'A'; x <= 'H'; ++x) {
-		int X = x - 'A';
+	for (int x = 1; x <= 8; ++x) {
+		if (x == 1 || x == 8) {
+			m_board[x - 1][7] = new Rook(ChessPiece::COLOR_BLACK, std::make_pair(x - 1, 7));
+			m_board[x - 1][0] = new Rook(ChessPiece::COLOR_WHITE, std::make_pair(x - 1, 0));
+		}
 
-		m_board[X][1] = new Pawn(ChessPiece::COLOR_WHITE, std::make_pair(X, 1));
-		m_board[X][2] = new Pawn(ChessPiece::COLOR_BLACK, std::make_pair(X, 2));
-		m_board[X][6] = new Pawn(ChessPiece::COLOR_BLACK, std::make_pair(X, 7));
+		m_board[x - 1][6] = new Pawn(ChessPiece::COLOR_BLACK, std::make_pair(x - 1, 7));
+		m_board[x - 1][1] = new Pawn(ChessPiece::COLOR_WHITE, std::make_pair(x - 1, 1));
 	}
 }
 
@@ -21,7 +23,8 @@ bool Board::isEmpty(std::pair<int,int> loc) {
 bool Board::movePiece(std::pair<int,int> loc1, std::pair<int,int> loc2) {
 	ChessPiece** CP_loc_1 = &m_board[loc1.first][loc1.second];
 	ChessPiece** CP_loc_2 = &m_board[loc2.first][loc2.second];
-
+	if(*CP_loc_1 == nullptr)
+		return false;
 
 	std::cout << "Attempting to move a " << (*CP_loc_1)->getPieceType()
 			  << " from <" << (*CP_loc_1)->m_loc.first << ","<<  (*CP_loc_1)->m_loc.second << ">"
@@ -29,12 +32,14 @@ bool Board::movePiece(std::pair<int,int> loc1, std::pair<int,int> loc2) {
 	int moveType = (*CP_loc_1)->moveType(this, loc2);
 	if (moveType != ChessPiece::MOVE_INVALID) {	// If move not irregular (not a move)
 		if (moveType == ChessPiece::MOVE_CAPTURE) {    // If moveType is capture
-			if (!isEmpty(loc2) && (*CP_loc_1)->m_color != (*CP_loc_2)->m_color) {    // If is able to get captured, get captured
+			if (!isEmpty(loc2)) {    // If is actually capturing, then try
+				if ((*CP_loc_1)->m_color != (*CP_loc_2)->m_color) {	// Make sure can be captured
 					std::cout << "GET CAPTURED!!!" << std::endl;
 
 					*CP_loc_2 = nullptr;    //NOT NECESSARY
-			} else	// Can't capture
-				return false;
+				} else	// Can't capture
+					return false;
+			}	// Just move
 		}
 
 		*CP_loc_2 = *CP_loc_1;
@@ -42,10 +47,29 @@ bool Board::movePiece(std::pair<int,int> loc1, std::pair<int,int> loc2) {
 
 		(*CP_loc_2)->moveTo(loc2);
 
+		rotateBoard();	// End of turn
+
 		return true;
 	}
 
 	return false;
+}
+
+void Board::rotateBoard() {
+	auto rotatedBoard = std::vector<std::vector<ChessPiece*>>(8, std::vector<ChessPiece*>(8, nullptr));
+
+	for (char x = 'A'; x <= 'H'; ++x) {
+		for (int y = 1; y <= 8; ++y) {
+			ChessPiece* curr = m_board[x - 'A'][y - 1];
+			if (curr != nullptr)
+				curr->m_loc = std::make_pair(7 - (x - 'A'), 7 - (y - 1));	// I know, this is not optimal, but I'm lazy
+
+			rotatedBoard[7 - (x - 'A')][7 - (y - 1)] = curr;
+		}
+	}
+
+	m_board = rotatedBoard;
+	m_rotated = !m_rotated;
 }
 
 bool Board::checkClearPath(std::pair<int,int> loc1, std::pair<int,int> loc2, std::pair<int,int> delta) {

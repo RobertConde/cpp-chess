@@ -30,6 +30,8 @@ public:
 		else
 			os << piece.m_symbol_black;
 
+		//os << piece.m_loc.first << "," << piece.m_loc.second << " ";
+
 		return os;
 	}
 
