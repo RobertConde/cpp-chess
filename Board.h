@@ -5,8 +5,7 @@
 
 // Forward declarations of pieces
 struct Pawn;
-struct Rook;
-struct King;
+struct Root;
 
 struct Board {
 public:
@@ -19,7 +18,7 @@ public:
 		os << " *--------*" << "\n";
 
 		for (char y = 'H'; y >= 'A'; --y) {
-			os << (!brd.m_rotated ? (y - 'A') + 1 : (7 - (y - 'A'))) << "|";
+			os << (char) (!brd.m_rotated ? y : (7 - (y - 'A')) + 'A') << "|";
 
 			for (int x = 1; x <= 8; ++x) {
 				ChessPiece* currPiece = brd.m_board[x - 1][y - 'A'];
@@ -35,7 +34,7 @@ public:
 		os << " *--------*\n" << "  ";
 
 		for(int X = 1; X <= 8; ++X)
-			os << (char) (!brd.m_rotated ? (X - 1) + 'A': (7 - (X - 1)) + 'A');
+			os << (!brd.m_rotated ? X : (8 - (X - 1)));
 		os << std::endl;
 
 		return os;
@@ -43,10 +42,10 @@ public:
 
 	friend std::istream& operator >>(std::istream& is, Board& brd) {
 		// Translate coordinates
-		int x1 = is.get() - 'A',
-			y1 = is.get() - '1',
-			x2 = is.get() - 'A',
-			y2 = is.get() - '1';
+		int y1 = is.get() - 'A',
+			x1 = is.get() - '1',
+			y2 = is.get() - 'A',
+			x2 = is.get() - '1';
 		is.get();	// Newline
 
 		if (brd.m_rotated) {
@@ -76,4 +75,3 @@ public:
 
 #include "Pawn.cpp"
 #include "Rook.cpp"
-#include "King.cpp"
