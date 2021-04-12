@@ -5,16 +5,19 @@
 int main() {
 	std::cout << "Hello, World!" << std::endl;
 
-	ChessPiece* pwn = new Pawn(ChessPiece::MOVE_WHITE, std::make_pair(1, 1));
+	//std::cout<<"\033[31;1;4mHello\033[0m" <<std::endl;
+
+	//std::cout << "\u001b[37m" << "P" << '\u001b[0m' << std::endl;
+
+	ChessPiece* pwn = new Pawn(ChessPiece::COLOR_WHITE, std::make_pair(1, 1));
 	std::cout << *pwn << std::endl;
 
 	Board brd;
-	std::cout << brd << std::endl;
+	std::cout << brd;
 
-	std::cout << (brd.movePiece(std::make_pair(0, 1), std::make_pair(0,3)) ? "T" : "F")  << std::endl;
+	std::cout << (brd.movePiece(std::make_pair(0, 1), std::make_pair(1,2)) ? "T" : "F")  << std::endl << brd;
 
-	std::cout << brd << std::endl;
+	std::cout << (brd.movePiece(std::make_pair(2, 1), std::make_pair(3,2)) ? "T" : "F")  << std::endl << brd;
 
 	return 0;
 }
-
